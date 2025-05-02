@@ -8,11 +8,14 @@ resource "aws_ecs_cluster_capacity_providers" "fargate_spot_provider" {
 }
 
 resource "aws_ecs_task_definition" "alloy" {
+  depends_on = [aws_cloudwatch_log_group.alloy]
+
   family                   = "alloy"
   requires_compatibilities = ["FARGATE"]
-  network_mode             = "awsvpc"
-  cpu                      = 512
-  memory                   = 1024
+
+  network_mode = "awsvpc"
+  cpu          = 512
+  memory       = 1024
 
   runtime_platform {
     operating_system_family = "LINUX"
