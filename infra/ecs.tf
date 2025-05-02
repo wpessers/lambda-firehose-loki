@@ -12,10 +12,7 @@ resource "aws_ecs_task_definition" "alloy" {
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = 512
-  memory                   = 2048
-
-  task_role_arn      = ""
-  execution_role_arn = ""
+  memory                   = 1024
 
   runtime_platform {
     operating_system_family = "LINUX"
