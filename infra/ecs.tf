@@ -39,7 +39,14 @@ resource "aws_ecs_task_definition" "alloy" {
         {
           valueFrom = "${aws_ssm_parameter.alloy_config.arn}/ALLOY_CONFIG"
         }
-      ]
+      ],
+      logConfiguration = {
+        logDriver = "awslogs",
+        options = {
+          awslogs-group  = aws_cloudwatch_log_group.alloy.name,
+          awslogs-region = "eu-central-1"
+        }
+      }
     }
   ])
 }
