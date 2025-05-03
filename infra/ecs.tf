@@ -17,6 +17,8 @@ resource "aws_ecs_task_definition" "alloy" {
   cpu          = 512
   memory       = 1024
 
+  execution_role_arn = aws_iam_role.ecs_execution_role.arn
+
   runtime_platform {
     operating_system_family = "LINUX"
     cpu_architecture        = "ARM64"
@@ -41,6 +43,7 @@ resource "aws_ecs_task_definition" "alloy" {
       secrets = [
         {
           valueFrom = "${aws_ssm_parameter.alloy_config.arn}/ALLOY_CONFIG"
+          name      = "ALLOY_CONFIG_FILE"
         }
       ],
       logConfiguration = {
@@ -55,8 +58,8 @@ resource "aws_ecs_task_definition" "alloy" {
 }
 
 resource "aws_ecs_service" "alloy" {
-  name = "alloy"
-  cluster = aws_ecs_cluster.alloy.id
+  name            = "alloy"
+  cluster         = aws_ecs_cluster.alloy.id
   task_definition = aws_ecs_task_definition.alloy.arn
-  desired_count = 1
+  desired_count   = 1
 }
