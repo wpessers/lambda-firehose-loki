@@ -49,8 +49,9 @@ resource "aws_ecs_task_definition" "alloy" {
       logConfiguration = {
         logDriver = "awslogs",
         options = {
-          awslogs-group  = aws_cloudwatch_log_group.alloy.name,
-          awslogs-region = "eu-central-1"
+          awslogs-group         = aws_cloudwatch_log_group.alloy.name,
+          awslogs-region        = "eu-central-1"
+          awslogs-stream-prefix = "alloy"
         }
       }
     }
@@ -62,4 +63,8 @@ resource "aws_ecs_service" "alloy" {
   cluster         = aws_ecs_cluster.alloy.id
   task_definition = aws_ecs_task_definition.alloy.arn
   desired_count   = 1
+
+  network_configuration {
+    subnets = data.aws_subnets.default.ids
+  }
 }
