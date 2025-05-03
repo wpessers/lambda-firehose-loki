@@ -42,7 +42,7 @@ resource "aws_ecs_task_definition" "alloy" {
       ]
       secrets = [
         {
-          valueFrom = "${aws_ssm_parameter.alloy_config.arn}/ALLOY_CONFIG"
+          valueFrom = "${aws_ssm_parameter.alloy_config.arn}"
           name      = "ALLOY_CONFIG_FILE"
         }
       ],
@@ -62,9 +62,11 @@ resource "aws_ecs_service" "alloy" {
   name            = "alloy"
   cluster         = aws_ecs_cluster.alloy.id
   task_definition = aws_ecs_task_definition.alloy.arn
+  launch_type     = "FARGATE"
   desired_count   = 1
 
   network_configuration {
-    subnets = data.aws_subnets.default.ids
+    assign_public_ip = true
+    subnets          = data.aws_subnets.default.ids
   }
 }
