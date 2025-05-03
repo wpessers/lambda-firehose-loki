@@ -53,3 +53,10 @@ resource "aws_ecs_task_definition" "alloy" {
     }
   ])
 }
+
+resource "aws_ecs_service" "alloy" {
+  name = "alloy"
+  cluster = aws_ecs_cluster.alloy.id
+  task_definition = aws_ecs_task_definition.alloy.arn
+  desired_count = 1
+}
