@@ -40,17 +40,56 @@ resource "aws_ecs_task_definition" "alloy" {
         "-c",
         "echo $ALLOY_CONFIG_FILE | base64 -d > /etc/alloy/config.alloy; /bin/alloy run --server.http.listen-addr=0.0.0.0:12345 --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy"
       ]
+      environment = [
+        {
+          name  = "GCLOUD_HOSTED_METRICS_URL"
+          value = "https://prometheus-prod-24-prod-eu-west-2.grafana.net/api/prom/push"
+        },
+        {
+          name  = "GCLOUD_HOSTED_LOGS_URL"
+          value = "https://logs-prod-012.grafana.net/loki/api/v1/push"
+        },
+        {
+          name  = "GCLOUD_FM_URL"
+          value = "https://fleet-management-prod-011.grafana.net"
+        },
+        {
+          name  = "GCLOUD_FM_POLL_FREQUENCY"
+          value = "60s"
+        },
+        {
+          name  = "ARCH"
+          value = "arm64"
+        }
+      ]
       secrets = [
         {
-          valueFrom = "${aws_ssm_parameter.alloy_config.arn}"
           name      = "ALLOY_CONFIG_FILE"
+          valueFrom = "${aws_ssm_parameter.alloy_config.arn}"
+        },
+        {
+          name  = "GCLOUD_RW_API_KEY"
+          valueFrom = "${aws_secretsmanager_secret.grafana_cloud_api_key.arn}"
+        },
+        {
+          name  = "GCLOUD_HOSTED_METRICS_ID"
+          valueFrom = "${aws_secretsmanager_secret.grafana_cloud_hosted_metrics_id.arn}"
+        },
+        {
+          name  = "GCLOUD_HOSTED_LOGS_ID"
+          valueFrom = "${aws_secretsmanager_secret.grafana_cloud_hosted_logs_id.arn}"
+        },
+        
+        {
+          name  = "GCLOUD_FM_HOSTED_ID"
+          valueFrom = "${aws_secretsmanager_secret.grafana_cloud_fleet_manager_id.arn}"
         }
       ],
       logConfiguration = {
         logDriver = "awslogs",
         options = {
           awslogs-group         = aws_cloudwatch_log_group.alloy.name,
-          awslogs-region        = "eu-central-1"
+          awslogs-region        = var.aws_region
           awslogs-stream-prefix = "alloy"
         }
       }

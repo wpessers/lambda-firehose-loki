@@ -33,17 +33,27 @@ data "aws_iam_policy_document" "ssm_policy_document" {
     ]
     resources = [aws_ssm_parameter.alloy_config.arn]
   }
+
+  statement {
+    effect    = "Allow"
+    actions   = [
+      "secretsmanager:GetSecretValue"
+    ]
+    resources = [
+      "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account}:secret:grafana*"
+    ]
+  }
 }
 
-resource "aws_iam_policy" "ssm_policy" {
-  name   = "ecs-ssm-policy"
-  policy = data.aws_iam_policy_document.ssm_policy_document.json
+resource "aws_iam_policy" "custom_policy" {
+  name   = "ecs-custom-policy"
+  policy = data.aws_iam_policy_document.custom_policy_document.json
 }
 
-resource "aws_iam_role_policy_attachments_exclusive" "name" {
+resource "aws_iam_role_policy_attachments_exclusive" "role_policy_attachments" {
   role_name = aws_iam_role.ecs_execution_role.name
   policy_arns = [
     data.aws_iam_policy.ecs_task_execution_policy.arn,
-    aws_iam_policy.ssm_policy.arn
+    aws_iam_policy.custom_policy.arn
   ]
 }
