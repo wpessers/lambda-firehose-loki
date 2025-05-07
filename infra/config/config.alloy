@@ -1,4 +1,7 @@
-logging {
-  level  = "info"
-  format = "logfmt"
+remotecfg {
+  url = sys.env("GCLOUD_FM_URL")
+  basic_auth {
+    username = sys.env("GCLOUD_FM_HOSTED_ID")
+    password = sys.env("GCLOUD_RW_API_KEY")
+  }
 }
