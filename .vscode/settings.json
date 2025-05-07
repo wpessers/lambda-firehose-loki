@@ -1,0 +1,36 @@
+{
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#490d31",
+    "titleBar.activeForeground": "#e2e8f0",
+    "titleBar.inactiveBackground": "#391228",
+    "titleBar.inactiveForeground": "#b1b6bd"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.rulers": [100],
+  "editor.tabSize": 2,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+
+  "eslint.validate": [
+    "javascript",
+    "typescript"
+  ],
+  "eslint.workingDirectories": ["src"],
+
+  "eslint.rules.customizations": [{ "rule": "*", "severity": "warn" }],
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "prettier.documentSelectors": [
+    "**/*.{cjs,mjs,ts,md,json,yaml,yml}"
+  ],
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
