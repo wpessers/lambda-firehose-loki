@@ -1,3 +1,10 @@
+loki.source.awsfirehose "loki_fh_receiver" {
+  http {
+    listen_address = "0.0.0.0"
+    listen_port = 9999
+  }
+}
+
 remotecfg {
   url = sys.env("GCLOUD_FM_URL")
   basic_auth {
