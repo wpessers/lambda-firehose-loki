@@ -1,9 +1,9 @@
 /**
- * @type {import('prettier').Config & import("@ianvs/prettier-plugin-sort-imports").PluginConfig}
+ * @type {import('prettier').Config & import("@trivago/prettier-plugin-sort-imports").PluginConfig}
  */
 const config = {
   arrowParens: "always",
-  printWidth: 80,
+  printWidth: 100,
   singleQuote: false,
   semi: true,
   trailingComma: "all",

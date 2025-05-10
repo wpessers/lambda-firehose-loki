@@ -1,13 +1,9 @@
 import tseslint from "typescript-eslint";
-import importPlugin from "eslint-plugin-import-x";
 
 export default tseslint.config(
   { ignores: ["dist", "*.config.*"] },
   {
     files: ["**/*.ts"],
-    plugins: {
-      "import-x": importPlugin,
-    },
     extends: [
       ...tseslint.configs.recommended,
     ],
@@ -20,7 +16,6 @@ export default tseslint.config(
         "error",
         { prefer: "type-imports", fixStyle: "inline-type-imports" },
       ],
-      "import-x/consistent-type-specifier-style": ["error", "prefer-inline"],
 
       "@typescript-eslint/no-confusing-void-expression": "off",
       "@typescript-eslint/restrict-template-expressions": "off",
