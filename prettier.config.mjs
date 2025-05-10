@@ -8,9 +8,7 @@ const config = {
   semi: true,
   trailingComma: "all",
   tabWidth: 2,
-  plugins: [
-    "@trivago/prettier-plugin-sort-imports",
-  ],
+  plugins: ["@trivago/prettier-plugin-sort-imports"],
   importOrder: ["<THIRD_PARTY_MODULES>", "", "^~/", "^[.][.]/", "^[.]/"],
 };
 

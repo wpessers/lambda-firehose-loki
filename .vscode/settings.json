@@ -16,17 +16,12 @@
     "strings": true
   },
 
-  "eslint.validate": [
-    "javascript",
-    "typescript"
-  ],
+  "eslint.validate": ["javascript", "typescript"],
   "eslint.workingDirectories": ["src"],
 
   "eslint.rules.customizations": [{ "rule": "*", "severity": "warn" }],
   "typescript.tsdk": "node_modules/typescript/lib",
-  "prettier.documentSelectors": [
-    "**/*.{cjs,mjs,ts,md,json,yaml,yml}"
-  ],
+  "prettier.documentSelectors": ["**/*.{cjs,mjs,ts,md,json,yaml,yml}"],
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
