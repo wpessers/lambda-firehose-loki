@@ -11,7 +11,8 @@
     "lint:fix": "npm run lint --fix",
     "format": "prettier '**/*.{cjs,mjs,ts,tsx,md,json}' --ignore-path ../.gitignore --ignore-unknown --no-error-on-unmatched-pattern --write",
     "format:check": "prettier '**/*.{cjs,mjs,ts,tsx,md,json}' --ignore-path ../.gitignore --ignore-unknown --no-error-on-unmatched-pattern --check",
-    "build": "node esbuild.config.mjs"
+    "build": "node esbuild.build.mjs",
+    "postbuild": "zip -r dist/lambdas.zip dist/lambdas/*"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^5.2.2",
