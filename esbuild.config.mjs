@@ -1,8 +1,8 @@
 import * as esbuild from "esbuild";
 
 await esbuild.build({
-  entryPoints: ["app.js"],
+  entryPoints: ["src/main.ts"],
   platform: "node",
   bundle: true,
-  outfile: "out.js",
+  outdir: "dist/lambdas",
 });
