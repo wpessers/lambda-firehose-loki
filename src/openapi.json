@@ -12,7 +12,12 @@
           "type": "aws_proxy",
           "httpMethod": "POST",
           "uri": "arn:aws:apigateway:eu-central-1:lambda:path/2015-03-31/functions/${hello_world_lambda_arn}/invocations",
-          "passThroughBehavior": "when_no_match"
+          "passThroughBehavior": "when_no_match",
+          "responses": {
+            "200": {
+              "statusCode": 200
+            }
+          }
         },
         "operationId": "helloWorld",
         "description": "Dummy hello world endpoint",
@@ -34,7 +39,12 @@
   "components": {
     "schemas": {
       "HelloWorldResponse": {
-        "type": "string"
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
       }
     }
   }

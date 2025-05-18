@@ -24,7 +24,7 @@ data "aws_iam_policy" "ecs_task_execution_policy" {
   name = "AmazonECSTaskExecutionRolePolicy"
 }
 
-data "aws_iam_policy_document" "ssm_policy_document" {
+data "aws_iam_policy_document" "custom_policy_document" {
   statement {
     effect    = "Allow"
     actions   = [

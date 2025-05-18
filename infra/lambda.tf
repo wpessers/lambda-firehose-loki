@@ -12,7 +12,7 @@ data "aws_iam_policy_document" "lambda_assume_role" {
 }
 
 resource "aws_cloudwatch_log_group" "log_group" {
-  name              = "/aws/lambda/${aws_lambda_function.lambda_function.function_name}"
+  name              = "/aws/lambda/${aws_lambda_function.hello_world.function_name}"
   retention_in_days = 1
 }
 

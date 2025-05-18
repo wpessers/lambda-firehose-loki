@@ -16,6 +16,8 @@
     "strings": true
   },
 
+  "files.autoSave": "onFocusChange",
+
   "eslint.validate": ["javascript", "typescript"],
   "eslint.workingDirectories": ["src"],
 
