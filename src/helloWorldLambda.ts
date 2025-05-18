@@ -8,8 +8,6 @@ export const handler = async (_event: APIGatewayProxyEvent): Promise<APIGatewayP
   logger.info("Incoming request received");
   return {
     statusCode: 200,
-    body: JSON.stringify({
-      message: "Hello World",
-    }),
+    body: "Hello World",
   };
 };
