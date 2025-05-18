@@ -12,8 +12,8 @@ data "aws_iam_policy_document" "lambda_assume_role" {
 }
 
 resource "aws_cloudwatch_log_group" "log_group" {
-  name              = "/aws/lambda/${aws_lambda_function.hello_world.function_name}"
-  retention_in_days = 1
+  name            = "/aws/lambda/${aws_lambda_function.hello_world.function_name}"
+  log_group_class = "DELIVERY"
 }
 
 resource "aws_iam_role" "lambda_execution_role" {
@@ -34,6 +34,11 @@ resource "aws_lambda_function" "hello_world" {
 
   tracing_config {
     mode = "PassThrough"
+  }
+
+  logging_config {
+    log_format = "JSON"
+    log_group  = aws_cloudwatch_log_group.log_group.arn
   }
 }
 
