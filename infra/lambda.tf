@@ -1,28 +1,14 @@
-data "aws_iam_policy_document" "lambda_assume_role" {
-  statement {
-    effect = "Allow"
-
-    principals {
-      type        = "Service"
-      identifiers = ["lambda.amazonaws.com"]
-    }
-
-    actions = ["sts:AssumeRole"]
-  }
+locals {
+  lambda_function_name = "hello-world"
 }
 
 resource "aws_cloudwatch_log_group" "log_group" {
-  name            = "/aws/lambda/${aws_lambda_function.hello_world.function_name}"
+  name            = "/aws/lambda/${local.lambda_function_name}"
   log_group_class = "DELIVERY"
 }
 
-resource "aws_iam_role" "lambda_execution_role" {
-  name               = "hello-world-lambda-role"
-  assume_role_policy = data.aws_iam_policy_document.lambda_assume_role.json
-}
-
 resource "aws_lambda_function" "hello_world" {
-  function_name = "hello-world"
+  function_name = local.lambda_function_name
   role          = aws_iam_role.lambda_execution_role.arn
 
   filename         = "../dist/lambdas.zip"
@@ -40,21 +26,6 @@ resource "aws_lambda_function" "hello_world" {
     log_format = "JSON"
     log_group  = aws_cloudwatch_log_group.log_group.arn
   }
-}
-
-
-data "aws_iam_policy_document" "lambda_policy" {
-  statement {
-    effect    = "Allow"
-    actions   = ["logs:CreateLogStream", "logs:PutLogEvents"]
-    resources = ["${aws_cloudwatch_log_group.log_group.arn}:*"]
-  }
-}
-
-resource "aws_iam_role_policy" "lambda_role_policy" {
-  name   = "hello-world-lambda-role-policy"
-  policy = data.aws_iam_policy_document.lambda_policy.json
-  role   = aws_iam_role.lambda_execution_role.id
 }
 
 resource "aws_lambda_permission" "apigw_invoke_hello_world_lambda" {
