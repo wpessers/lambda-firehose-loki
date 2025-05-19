@@ -68,20 +68,20 @@ resource "aws_ecs_task_definition" "alloy" {
           valueFrom = "${aws_ssm_parameter.alloy_config.arn}"
         },
         {
-          name  = "GCLOUD_RW_API_KEY"
+          name      = "GCLOUD_RW_API_KEY"
           valueFrom = "${data.aws_secretsmanager_secret.grafana_cloud_api_key.arn}"
         },
         {
-          name  = "GCLOUD_HOSTED_METRICS_ID"
+          name      = "GCLOUD_HOSTED_METRICS_ID"
           valueFrom = "${data.aws_secretsmanager_secret.grafana_cloud_hosted_metrics_id.arn}"
         },
         {
-          name  = "GCLOUD_HOSTED_LOGS_ID"
+          name      = "GCLOUD_HOSTED_LOGS_ID"
           valueFrom = "${data.aws_secretsmanager_secret.grafana_cloud_hosted_logs_id.arn}"
         },
-        
+
         {
-          name  = "GCLOUD_FM_HOSTED_ID"
+          name      = "GCLOUD_FM_HOSTED_ID"
           valueFrom = "${data.aws_secretsmanager_secret.grafana_cloud_fleet_manager_id.arn}"
         }
       ],
