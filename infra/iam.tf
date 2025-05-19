@@ -26,8 +26,8 @@ data "aws_iam_policy" "ecs_task_execution_policy" {
 
 data "aws_iam_policy_document" "custom_policy_document" {
   statement {
-    effect    = "Allow"
-    actions   = [
+    effect = "Allow"
+    actions = [
       "ssm:GetParameter",
       "ssm:GetParameters"
     ]
@@ -35,8 +35,8 @@ data "aws_iam_policy_document" "custom_policy_document" {
   }
 
   statement {
-    effect    = "Allow"
-    actions   = [
+    effect = "Allow"
+    actions = [
       "secretsmanager:GetSecretValue"
     ]
     resources = [
