@@ -24,6 +24,8 @@ data "aws_iam_policy" "ecs_task_execution_policy" {
   name = "AmazonECSTaskExecutionRolePolicy"
 }
 
+data "aws_caller_identity" "current" {}
+
 data "aws_iam_policy_document" "custom_policy_document" {
   statement {
     effect = "Allow"
@@ -40,7 +42,7 @@ data "aws_iam_policy_document" "custom_policy_document" {
       "secretsmanager:GetSecretValue"
     ]
     resources = [
-      "arn:aws:secretsmanager:${var.aws_region}:${var.aws_account}:secret:grafana*"
+      "arn:aws:secretsmanager:${var.aws_region}:${data.aws_caller_identity.current.account_id}:secret:grafana*"
     ]
   }
 }
