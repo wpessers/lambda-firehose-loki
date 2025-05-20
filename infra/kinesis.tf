@@ -3,7 +3,10 @@ resource "aws_kinesis_firehose_delivery_stream" "logs_stream" {
   destination = "http_endpoint"
 
   http_endpoint_configuration {
-    url = ""
+    name     = "Grafana Alloy"
+    url      = "https://test.com"
+    role_arn = aws_iam_role.s3_backup.arn
+
 
     s3_configuration {
       role_arn           = aws_iam_role.s3_backup.arn
