@@ -33,6 +33,11 @@ resource "aws_ecs_task_definition" "alloy" {
           containerPort = 12345,
           hostPort      = 12345,
           protocol      = "tcp"
+        },
+        {
+          containerPort = 9999,
+          hostPort      = 9999,
+          protocol      = "tcp"
         }
       ]
       entrypoint = [
