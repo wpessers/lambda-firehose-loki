@@ -3,16 +3,19 @@ resource "aws_kinesis_firehose_delivery_stream" "logs_stream" {
   destination = "http_endpoint"
 
   http_endpoint_configuration {
-    name     = "Grafana Alloy"
-    url      = "https://test.com"
-    role_arn = aws_iam_role.s3_backup.arn
+    name       = "Grafana Alloy"
+    url        = var.grafana_cloud_loki_endpoint
+    access_key = format("%s:%s", var.grafana_cloud_loki_instance_id, var.grafana_cloud_loki_token)
 
+    role_arn       = aws_iam_role.s3_backup.arn
+    s3_backup_mode = "FailedDataOnly"
 
     s3_configuration {
       role_arn           = aws_iam_role.s3_backup.arn
       bucket_arn         = aws_s3_bucket.firehose_backup.arn
-      buffering_size     = 10
-      buffering_interval = 400
+      buffering_size     = 5
+      buffering_interval = 300
+      compression_format = "GZIP"
     }
   }
 }
