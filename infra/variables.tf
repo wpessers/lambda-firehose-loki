@@ -19,4 +19,3 @@ variable "grafana_cloud_loki_instance_id" {
 variable "grafana_cloud_loki_token" {
   type = string
 }
-
