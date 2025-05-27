@@ -1,4 +1,6 @@
-resource "aws_s3_bucket" "firehose_backup" {}
+resource "aws_s3_bucket" "firehose_backup" {
+  bucket_prefix = "firehose-backup"
+}
 
 resource "aws_s3_bucket_public_access_block" "firehose_backup" {
   bucket = aws_s3_bucket.firehose_backup.bucket
