@@ -5,7 +5,7 @@ resource "aws_kinesis_firehose_delivery_stream" "logs_stream" {
   http_endpoint_configuration {
     name       = "Grafana Alloy"
     url        = var.grafana_cloud_loki_endpoint
-    access_key = format("%s:%s", var.grafana_cloud_loki_instance_id, var.grafana_cloud_loki_token)
+    access_key = format("%s:%s", data.aws_secretsmanager_secret.grafana_cloud_hosted_logs_id, data.aws_secretsmanager_secret.grafana_cloud_api_key)
 
     role_arn       = aws_iam_role.s3_backup.arn
     s3_backup_mode = "FailedDataOnly"
